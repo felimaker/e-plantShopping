@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados del Examen</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-success text-center">
+            <h1 class="display-4">¡Congratulations!</h1>
+            <p class="lead">Has completado el curso: <strong>{{ course.name }}</strong></p>
+            <hr>
+            <h3>Score: {{ total_score }} / {{ possible_score }}</h3>
+            <p>Status: {% if passed %} Passed {% else %} Failed {% endif %}</p>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header bg-primary text-white">
+                <h4>Desglose de Resultados (Exam Results)</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for choice in submission.choices.all %}
+                    <li class="list-group-item">
+                        <strong>Pregunta:</strong> {{ choice.question.question_text }}<br>
+                        <strong>Tu respuesta:</strong> {{ choice.choice_text }}<br>
+                        <strong>Resultado:</strong> 
+                        {% if choice.is_correct %}
+                            <span class="badge badge-success">Correcta</span>
+                        {% else %}
+                            <span class="badge badge-danger">Incorrecta</span>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
